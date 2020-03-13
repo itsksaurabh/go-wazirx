@@ -43,8 +43,8 @@ type Market struct {
 	FeePercentOnProfit float64 `json:"feePercentOnProfit,omitempty"`
 }
 
-// Assets holds asset related data
-type Assets struct {
+// Asset holds asset related data
+type Asset struct {
 	Type              string `json:"type"`
 	Name              string `json:"name"`
 	Deposit           string `json:"deposit"`
@@ -56,4 +56,10 @@ type Assets struct {
 	MaxWithdrawAmount int    `json:"maxWithdrawAmount,omitempty"`
 	MinDepositAmount  int    `json:"minDepositAmount,omitempty"`
 	Confirmations     int    `json:"confirmations,omitempty"`
+}
+
+// MarketStatus holds the response from endpoint /api/v2/market-status
+type MarketStatus struct {
+	Markets []Market `json:"markets"`
+	Assets  []Asset  `json:"assets"`
 }
