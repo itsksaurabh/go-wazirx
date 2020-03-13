@@ -20,19 +20,6 @@ const (
 	DefaultBaseURL = "https://api.wazirx.com"
 )
 
-// Requester is implemented by any value that has a Request method.
-type Requester interface {
-	Request() (*http.Request, error)
-}
-
-// RequesterFunc implements Requester
-type RequesterFunc func() (*http.Request, error)
-
-// Request invokes 'f'
-func (f RequesterFunc) Request() (*http.Request, error) {
-	return f()
-}
-
 // WithCtx applies 'ctx' to the the http.Request and returns *http.Request
 // The provided ctx and req must be non-nil
 func WithCtx(ctx context.Context, req *http.Request) *http.Request {
@@ -51,14 +38,9 @@ type Client struct {
 }
 
 // Do sends the http.Request and unmarshalls the JSON response into 'target'
-func (c Client) Do(r Requester, target interface{}) error {
-	if r == nil {
-		return errors.New("invalid Requester")
-	}
-
-	req, err := r.Request()
-	if err != nil {
-		return errors.Wrap(err, "request failed")
+func (c Client) Do(req *http.Request, target interface{}) error {
+	if req == nil {
+		return errors.New("invalid Request")
 	}
 
 	if c.HTTP == nil {
