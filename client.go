@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -77,6 +78,29 @@ func (c Client) Do(r Requester, target interface{}) error {
 		return errors.Wrap(err, "request failed")
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		return ErrAPI{resp}
+	}
+
 	var buf bytes.Buffer
 	return json.NewDecoder(io.TeeReader(resp.Body, &buf)).Decode(target)
+}
+
+// ErrAPI is returned by API calls when the response status code isn't 200.
+type ErrAPI struct {
+	// Response from the request which returned error.
+	Response *http.Response
+}
+
+// Error implements the error interface.
+func (err ErrAPI) Error() (errStr string) {
+	if err.Response != nil {
+		errStr += fmt.Sprintf(
+			"request to %s returned %d (%s)",
+			err.Response.Request.URL,
+			err.Response.StatusCode,
+			http.StatusText(err.Response.StatusCode),
+		)
+	}
+	return errStr
 }
