@@ -82,6 +82,9 @@ func (c Client) Do(r Requester, target interface{}) error {
 		return ErrAPI{resp}
 	}
 
+	// Close body if response non-nil
+	defer resp.Body.Close()
+
 	var buf bytes.Buffer
 	return json.NewDecoder(io.TeeReader(resp.Body, &buf)).Decode(target)
 }
