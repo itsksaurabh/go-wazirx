@@ -9,8 +9,8 @@ import (
 
 // Fee holds bid and ask order's maker-taker fee percentage
 type Fee struct {
-	Bid MakerTaker `json:"bid"`
-	Ask MakerTaker `json:"ask"`
+	Bid interface{} `json:"bid"`
+	Ask interface{} `json:"ask"`
 }
 
 // Market holds market related data
