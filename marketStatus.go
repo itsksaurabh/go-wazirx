@@ -2,15 +2,35 @@ package wazirx
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
 )
 
+// MakerTaker holds order's maker-taker
+type MakerTaker struct {
+	Maker float64 `json:"maker"`
+	Taker float64 `json:"taker"`
+}
+
 // Fee holds bid and ask order's maker-taker fee percentage
 type Fee struct {
-	Bid interface{} `json:"bid"`
-	Ask interface{} `json:"ask"`
+	Bid MakerTaker `json:"bid"`
+	Ask MakerTaker `json:"ask"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+// Since `Fee` is returned as an map so it converts it
+// into struct for better access
+func (f *Fee) UnmarshalJSON(data []byte) error {
+	var aux map[string]interface{}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	mapstructure.Decode(aux, f)
+	return nil
 }
 
 // Market holds market related data
