@@ -35,21 +35,37 @@ func (f *Fee) UnmarshalJSON(data []byte) error {
 
 // Market holds market related data
 type Market struct {
-	BaseMarket         string  `json:"baseMarket"`
-	QuoteMarket        string  `json:"quoteMarket"`
-	MinBuyAmount       float64 `json:"minBuyAmount,omitempty"`
-	MinSellAmount      float64 `json:"minSellAmount,omitempty"`
-	BasePrecision      int     `json:"basePrecision,omitempty"`
-	QuotePrecision     int     `json:"quotePrecision,omitempty"`
-	Status             string  `json:"status"`
-	Fee                Fee     `json:"fee,omitempty"`
-	Low                string  `json:"low,omitempty"`
-	High               string  `json:"high,omitempty"`
-	Last               string  `json:"last,omitempty"`
-	Type               string  `json:"type"`
-	Open               float64 `json:"open,omitempty"`
-	Volume             string  `json:"volume,omitempty"`
-	Sell               string  `json:"sell,omitempty"`
+	// Ticker code of base asset
+	BaseMarket string `json:"baseMarket"`
+	// Ticker code of quote asset
+	QuoteMarket string `json:"quoteMarket"`
+	// Minimum buy amount of base asset
+	MinBuyAmount float64 `json:"minBuyAmount,omitempty"`
+	// Minumum sell amount of base asset
+	MinSellAmount float64 `json:"minSellAmount,omitempty"`
+	// Maximum precision of base asset, this the decimal point.
+	BasePrecision int `json:"basePrecision,omitempty"`
+	// Maximum precision of quote asset
+	QuotePrecision int `json:"quotePrecision,omitempty"`
+	// This defines the current state of the market. This can be active or suspended
+	Status string `json:"status"`
+	// JSON Object consists of bid and ask order's maker-taker fee percentage
+	Fee Fee `json:"fee,omitempty"`
+	// 24 hrs lowest price of base asset
+	Low string `json:"low,omitempty"`
+	// 24 hrs highest price of base asset
+	High string `json:"high,omitempty"`
+	// Last traded price in current market
+	Last string `json:"last,omitempty"`
+	// This defines the type of market, currently we have SPOT and P2P
+	Type string `json:"type"`
+	// Market Open price 24hrs ago
+	Open float64 `json:"open,omitempty"`
+	// Last 24hrs traded volume
+	Volume string `json:"volume,omitempty"`
+	// Top ask order price
+	Sell string `json:"sell,omitempty"`
+	// Top bid order price
 	Buy                string  `json:"buy,omitempty"`
 	At                 int     `json:"at,omitempty"`
 	MaxBuyAmount       int     `json:"maxBuyAmount,omitempty"`
@@ -60,17 +76,26 @@ type Market struct {
 
 // Asset holds asset related data
 type Asset struct {
-	Type              string  `json:"type"`
-	Name              string  `json:"name"`
-	Deposit           string  `json:"deposit"`
-	Withdrawal        string  `json:"withdrawal"`
-	ListingType       string  `json:"listingType"`
-	Category          string  `json:"category"`
-	WithdrawFee       float64 `json:"withdrawFee,omitempty"`
+	// asset code
+	Type string `json:"type"`
+	// Display name of asset
+	Name string `json:"name"`
+	// Denotes whether deposit is enabled or disabled
+	Deposit string `json:"deposit"`
+	// Denotes whether withdrawal is enabled or disabled
+	Withdrawal  string `json:"withdrawal"`
+	ListingType string `json:"listingType"`
+	Category    string `json:"category"`
+	// Withdrawal fee of asset
+	WithdrawFee float64 `json:"withdrawFee,omitempty"`
+	// Minimum withdrawal amount in a single transaction
 	MinWithdrawAmount float64 `json:"minWithdrawAmount,omitempty"`
+	// Maximum withdrawal amount in a single transaction
 	MaxWithdrawAmount float64 `json:"maxWithdrawAmount,omitempty"`
-	MinDepositAmount  float64 `json:"minDepositAmount,omitempty"`
-	Confirmations     int     `json:"confirmations,omitempty"`
+	// This is the min Deposit amount that will be accepted as deposit
+	MinDepositAmount float64 `json:"minDepositAmount,omitempty"`
+	// Is the min number of block height needed to confirm a block chain deposit transaction.
+	Confirmations int `json:"confirmations,omitempty"`
 }
 
 // MarketStatus holds the response from endpoint /api/v2/market-status
