@@ -21,7 +21,7 @@ type TickerData struct {
 	Last string `json:"last"`
 	Type string `json:"type"`
 	// Market Open price 24hrs ago
-	Open float64 `json:"open"`
+	Open interface{} `json:"open"`
 	// Last 24hrs traded volume
 	Volume string `json:"volume"`
 	// Top ask order price
@@ -35,7 +35,7 @@ type TickerData struct {
 }
 
 // MarketTicker returs  the latest market heart-beat for all the markets for the last 24hrs.
-func (c Client) MarketTicker(ctx context.Context) (data []map[string]TickerData, err error) {
+func (c Client) MarketTicker(ctx context.Context) (data map[string]TickerData, err error) {
 	endpoint := "/api/v2/tickers"
 
 	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
