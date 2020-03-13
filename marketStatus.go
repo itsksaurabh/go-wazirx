@@ -1,5 +1,12 @@
 package wazix
 
+import (
+	"context"
+	"net/http"
+
+	"github.com/pkg/errors"
+)
+
 // Bid holds maker-taker bid
 type Bid struct {
 	Maker float64 `json:"maker"`
@@ -62,4 +69,19 @@ type Asset struct {
 type MarketStatus struct {
 	Markets []Market `json:"markets"`
 	Assets  []Asset  `json:"assets"`
+}
+
+// MarketStatus returs overview of markets and assets
+func (c Client) MarketStatus(ctx context.Context) (data *MarketStatus, err error) {
+	endpoint := "/listings/latest"
+
+	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "could not generate http request")
+	}
+
+	if err = c.Do(WithCtx(ctx, r), data); err != nil {
+		return nil, errors.Wrap(err, "request failed")
+	}
+	return data, nil
 }
