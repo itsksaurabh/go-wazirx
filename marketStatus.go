@@ -7,12 +7,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-// MakerTaker holds maker-taker data used in fee
-type MakerTaker struct {
-	Maker float64 `json:"maker"`
-	Taker float64 `json:"taker"`
-}
-
 // Fee holds bid and ask order's maker-taker fee percentage
 type Fee struct {
 	Bid MakerTaker `json:"bid"`
