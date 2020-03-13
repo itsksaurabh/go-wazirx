@@ -50,14 +50,14 @@ type Client struct {
 }
 
 // Do sends the http.Request and unmarshalls the JSON response into 'target'
-func (c Client) Do(r Requester, target interface{}) (*http.Response, error) {
+func (c Client) Do(r Requester, target interface{}) error {
 	if r == nil {
-		return nil, errors.New("invalid Requester")
+		return errors.New("invalid Requester")
 	}
 
 	req, err := r.Request()
 	if err != nil {
-		return nil, errors.Wrap(err, "request failed")
+		return errors.Wrap(err, "request failed")
 	}
 
 	if c.HTTP == nil {
@@ -74,9 +74,9 @@ func (c Client) Do(r Requester, target interface{}) (*http.Response, error) {
 	// make request to the api and read the response
 	resp, err := c.HTTP.Do(req)
 	if err != nil {
-		return nil, errors.Wrap(err, "request failed")
+		return errors.Wrap(err, "request failed")
 	}
 
 	var buf bytes.Buffer
-	return resp, json.NewDecoder(io.TeeReader(resp.Body, &buf)).Decode(target)
+	return json.NewDecoder(io.TeeReader(resp.Body, &buf)).Decode(target)
 }
