@@ -52,17 +52,17 @@ type Market struct {
 
 // Asset holds asset related data
 type Asset struct {
-	Type              string `json:"type"`
-	Name              string `json:"name"`
-	Deposit           string `json:"deposit"`
-	Withdrawal        string `json:"withdrawal"`
-	ListingType       string `json:"listingType"`
-	Category          string `json:"category"`
-	WithdrawFee       int    `json:"withdrawFee,omitempty"`
-	MinWithdrawAmount int    `json:"minWithdrawAmount,omitempty"`
-	MaxWithdrawAmount int    `json:"maxWithdrawAmount,omitempty"`
-	MinDepositAmount  int    `json:"minDepositAmount,omitempty"`
-	Confirmations     int    `json:"confirmations,omitempty"`
+	Type              string  `json:"type"`
+	Name              string  `json:"name"`
+	Deposit           string  `json:"deposit"`
+	Withdrawal        string  `json:"withdrawal"`
+	ListingType       string  `json:"listingType"`
+	Category          string  `json:"category"`
+	WithdrawFee       float64 `json:"withdrawFee,omitempty"`
+	MinWithdrawAmount float64 `json:"minWithdrawAmount,omitempty"`
+	MaxWithdrawAmount float64 `json:"maxWithdrawAmount,omitempty"`
+	MinDepositAmount  float64 `json:"minDepositAmount,omitempty"`
+	Confirmations     int     `json:"confirmations,omitempty"`
 }
 
 // MarketStatus holds the response from endpoint /api/v2/market-status
