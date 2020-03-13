@@ -1,4 +1,4 @@
-package wazix
+package wazirx
 
 import (
 	"context"
@@ -29,8 +29,8 @@ type Fee struct {
 type Market struct {
 	BaseMarket         string  `json:"baseMarket"`
 	QuoteMarket        string  `json:"quoteMarket"`
-	MinBuyAmount       int     `json:"minBuyAmount,omitempty"`
-	MinSellAmount      int     `json:"minSellAmount,omitempty"`
+	MinBuyAmount       float64 `json:"minBuyAmount,omitempty"`
+	MinSellAmount      float64 `json:"minSellAmount,omitempty"`
 	BasePrecision      int     `json:"basePrecision,omitempty"`
 	QuotePrecision     int     `json:"quotePrecision,omitempty"`
 	Status             string  `json:"status"`
@@ -72,16 +72,16 @@ type MarketStatus struct {
 }
 
 // MarketStatus returs overview of markets and assets
-func (c Client) MarketStatus(ctx context.Context) (data *MarketStatus, err error) {
-	endpoint := "/listings/latest"
+func (c Client) MarketStatus(ctx context.Context) (data MarketStatus, err error) {
+	endpoint := "/api/v2/market-status"
 
 	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "could not generate http request")
+		return MarketStatus{}, errors.Wrap(err, "could not generate http request")
 	}
 
-	if err = c.Do(WithCtx(ctx, r), data); err != nil {
-		return nil, errors.Wrap(err, "request failed")
+	if err = c.Do(WithCtx(ctx, r), &data); err != nil {
+		return MarketStatus{}, errors.Wrap(err, "request failed")
 	}
 	return data, nil
 }
