@@ -30,7 +30,7 @@ func WithCtx(ctx context.Context, req *http.Request) *http.Request {
 	return req.WithContext(ctx)
 }
 
-// Client parameters
+// Client for accessing different endpoints of the API
 type Client struct {
 	// HTTPClient is a reusable http client instance.
 	HTTP *http.Client
