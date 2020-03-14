@@ -1,7 +1,7 @@
 # Go-WazirX
 [![itsksaurabh](https://circleci.com/gh/itsksaurabh/go-wazirx.svg?style=shield)](https://circleci.com/gh/itsksaurabh/workflows/go-wazirx/tree/master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/itsksaurabh/go-wazirx)](https://goreportcard.com/report/github.com/itsksaurabh/go-wazirx)
-[![MIT License](https://img.shields.io/github/license/itsksaurabh/go-wazirx?style=social)](http://opensource.org/licenses/MIT)
+[![MIT License](https://img.shields.io/github/license/itsksaurabh/go-wazirx?style=social)](https://github.com/itsksaurabh/go-wazirx/blob/master/LICENSE)
 ___
 
 <img style="float:left;" width="200" src="./assets/logo.png"> 
@@ -46,10 +46,6 @@ Notes:
 
 # Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
-
-# License
-This is distributed under the MIT license found in the <a href="https://github.com/itsksaurabh/go-wazirx/blob/master/LICENSE">LICENSE</a> file.
-
 
 # Author
 <ul>
