@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/pkg/errors"
@@ -11,8 +12,8 @@ import (
 
 // PriceVolume holds price and volume
 type PriceVolume struct {
-	PRICE  string
-	VOLUME string
+	PRICE  float64
+	VOLUME float64
 }
 
 // MarketDepth holds orderbook data of a perticular market
@@ -40,14 +41,14 @@ func (d *MarketDepth) UnmarshalJSON(data []byte) error {
 
 	var tmp PriceVolume
 	for _, ask := range aux.Asks {
-		tmp.PRICE = ask[0]
-		tmp.VOLUME = ask[1]
+		tmp.PRICE, _ = strconv.ParseFloat(ask[0], 64)
+		tmp.VOLUME, _ = strconv.ParseFloat(ask[1], 64)
 		d.Asks = append(d.Asks, tmp)
 	}
 
 	for _, bid := range aux.Bids {
-		tmp.PRICE = bid[0]
-		tmp.VOLUME = bid[1]
+		tmp.PRICE, _ = strconv.ParseFloat(bid[0], 64)
+		tmp.VOLUME, _ = strconv.ParseFloat(bid[1], 64)
 		d.Bids = append(d.Bids, tmp)
 	}
 
