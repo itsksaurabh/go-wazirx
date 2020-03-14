@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/mitchellh/mapstructure"
@@ -53,34 +54,41 @@ type Market struct {
 	// JSON Object consists of bid and ask order's maker-taker fee percentage
 	Fee Fee `json:"fee,omitempty"`
 	// 24 hrs lowest price of base asset
-	Low string `json:"low,omitempty"`
+	Low float64 `json:"low,omitempty"`
 	// 24 hrs highest price of base asset
-	High string `json:"high,omitempty"`
+	High float64 `json:"high,omitempty"`
 	// Last traded price in current market
-	Last string `json:"last,omitempty"`
+	Last float64 `json:"last,omitempty"`
 	// This defines the type of market, currently we have SPOT and P2P
 	Type string `json:"type"`
 	// Market Open price 24hrs ago
 	Open float64 `json:"open,omitempty"`
 	// Last 24hrs traded volume
-	Volume string `json:"volume,omitempty"`
+	Volume float64 `json:"volume,omitempty"`
 	// Top ask order price
-	Sell string `json:"sell,omitempty"`
+	Sell float64 `json:"sell,omitempty"`
 	// Top bid order price
-	Buy                string    `json:"buy,omitempty"`
+	Buy                float64   `json:"buy,omitempty"`
 	At                 time.Time `json:"at,omitempty"`
-	MaxBuyAmount       int       `json:"maxBuyAmount,omitempty"`
-	MinBuyVolume       int       `json:"minBuyVolume,omitempty"`
-	MaxBuyVolume       int       `json:"maxBuyVolume,omitempty"`
+	MaxBuyAmount       float64   `json:"maxBuyAmount,omitempty"`
+	MinBuyVolume       float64   `json:"minBuyVolume,omitempty"`
+	MaxBuyVolume       float64   `json:"maxBuyVolume,omitempty"`
 	FeePercentOnProfit float64   `json:"feePercentOnProfit,omitempty"`
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface.
+// coverts some string type numeric to numeric type
 // coverts Timestamp from `int` to unix timestamp
 func (m *Market) UnmarshalJSON(data []byte) error {
 	type Alias Market
 	aux := &struct {
-		At int64 `json:"at,omitempty"`
+		At     int64  `json:"at,omitempty"`
+		Low    string `json:"low,omitempty"`
+		High   string `json:"high,omitempty"`
+		Last   string `json:"last,omitempty"`
+		Volume string `json:"volume,omitempty"`
+		Sell   string `json:"sell,omitempty"`
+		Buy    string `json:"buy,omitempty"`
 		*Alias
 	}{
 		Alias: (*Alias)(m),
@@ -88,6 +96,13 @@ func (m *Market) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &aux); err != nil {
 		return err
 	}
+
+	m.Low, _ = strconv.ParseFloat(aux.Low, 64)
+	m.High, _ = strconv.ParseFloat(aux.High, 64)
+	m.Last, _ = strconv.ParseFloat(aux.Last, 64)
+	m.Volume, _ = strconv.ParseFloat(aux.Volume, 64)
+	m.Sell, _ = strconv.ParseFloat(aux.Sell, 64)
+	m.Buy, _ = strconv.ParseFloat(aux.Buy, 64)
 	m.At = time.Unix(aux.At, 0)
 	return nil
 }
