@@ -28,7 +28,7 @@ import (
 )
 
 func main() {
-    // client for accessing different endpoints of the API
+        // client for accessing different endpoints of the API
 	client := wazirx.Client{}
 	ctx := context.Background()
 
