@@ -19,6 +19,10 @@ type MarketDepth struct {
 // MarketDepth returs orderbook of any market.
 // Pass any market to get the desired order book.
 func (c Client) MarketDepth(ctx context.Context, market string) (data MarketDepth, err error) {
+	if market == "" {
+		return MarketDepth{}, errors.New("market required")
+	}
+
 	endpoint := "/api/v2/depth" + "?market=" + market
 
 	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
