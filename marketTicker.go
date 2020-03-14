@@ -38,6 +38,7 @@ type TickerData struct {
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface.
+// It coverts some string type numeric to numeric type and
 // coverts Timestamp from `int` to unix timestamp
 func (t *TickerData) UnmarshalJSON(data []byte) error {
 	type Alias TickerData
