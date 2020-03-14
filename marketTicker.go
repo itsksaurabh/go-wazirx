@@ -2,7 +2,9 @@ package wazirx
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -29,9 +31,26 @@ type TickerData struct {
 	// Top bid order price
 	Buy string `json:"buy"`
 	// Timestamp when ticker information is fetched
-	At int `json:"at"`
+	At time.Time `json:"at"`
 	// Display text of market
 	Name string `json:"name"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+// coverts Timestamp from `int` to unix timestamp
+func (t *TickerData) UnmarshalJSON(data []byte) error {
+	type Alias TickerData
+	aux := &struct {
+		At int64 `json:"at"`
+		*Alias
+	}{
+		Alias: (*Alias)(t),
+	}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	t.At = time.Unix(aux.At, 0)
+	return nil
 }
 
 // MarketTicker returs  the latest market heart-beat for all the markets for the last 24hrs.

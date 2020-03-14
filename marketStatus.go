@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
@@ -66,12 +67,29 @@ type Market struct {
 	// Top ask order price
 	Sell string `json:"sell,omitempty"`
 	// Top bid order price
-	Buy                string  `json:"buy,omitempty"`
-	At                 int     `json:"at,omitempty"`
-	MaxBuyAmount       int     `json:"maxBuyAmount,omitempty"`
-	MinBuyVolume       int     `json:"minBuyVolume,omitempty"`
-	MaxBuyVolume       int     `json:"maxBuyVolume,omitempty"`
-	FeePercentOnProfit float64 `json:"feePercentOnProfit,omitempty"`
+	Buy                string    `json:"buy,omitempty"`
+	At                 time.Time `json:"at,omitempty"`
+	MaxBuyAmount       int       `json:"maxBuyAmount,omitempty"`
+	MinBuyVolume       int       `json:"minBuyVolume,omitempty"`
+	MaxBuyVolume       int       `json:"maxBuyVolume,omitempty"`
+	FeePercentOnProfit float64   `json:"feePercentOnProfit,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+// coverts Timestamp from `int` to unix timestamp
+func (m *Market) UnmarshalJSON(data []byte) error {
+	type Alias Market
+	aux := &struct {
+		At int64 `json:"at,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(m),
+	}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	m.At = time.Unix(aux.At, 0)
+	return nil
 }
 
 // Asset holds asset related data
