@@ -1,5 +1,4 @@
 # Go-WazirX
-
 [![itsksaurabh](https://circleci.com/gh/itsksaurabh/go-wazirx.svg?style=shield)](https://circleci.com/gh/itsksaurabh/workflows/go-wazirx/tree/master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/itsksaurabh/go-wazirx)](https://goreportcard.com/report/github.com/itsksaurabh/go-wazirx)
 [![MIT License](https://img.shields.io/github/license/itsksaurabh/go-wazirx)](http://opensource.org/licenses/MIT)
