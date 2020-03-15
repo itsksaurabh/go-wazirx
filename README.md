@@ -71,6 +71,33 @@ Notes:
 
 All errors generated at runtime will be returned to the calling client method. Any API request for which WazirX returns an error encoded in a JSON response will be parsed and returned by the client method as a Golang error struct. Lastly, it is important to note that for HTTP requests, if the response code returned is not '200 OK', an error will be returned to the client method detailing the response code that was received.
 
+## Testing
+
+In order to run the tests for this library, you will first need to install [Mage](https://magefile.org/) - A Make/rake-like dev tool using Go. You can install the dependency with the following command:
+
+**Using GOPATH**
+
+```
+go get -u -d github.com/magefile/mage
+cd $GOPATH/src/github.com/magefile/mage
+go run bootstrap.go
+```
+
+**Using Go Modules**
+
+```
+git clone https://github.com/magefile/mage
+cd mage
+go run bootstrap.go
+```
+The mage binary will be created in your `$GOPATH/bin` directory.
+You may also install a binary release from Mage's [releases](https://github.com/magefile/mage/releases) page.
+
+Then run all tests by executing the following in your command line:
+    
+ 	$ mage -v Test
+
+
 # Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
 
