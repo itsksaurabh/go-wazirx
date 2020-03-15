@@ -97,7 +97,18 @@ Then run all tests by executing the following in your command line:
     
  	$ mage -v Test
 
+**Updating Test Data**
 
+You can update the test data inside `./testdata/` by enabling the following flag inside the file `./wazirx_test.go` and then perform testing. By default the flag is set to `false`.
+```bash
+var (
+	updateTestData = flag.Bool(
+		"update",
+		true,
+		"if set then update testdata else use saved testdata for testing.",
+	)
+)
+```
 # Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
 
