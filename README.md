@@ -12,6 +12,28 @@ ___
 ## API Documentation
 You can read the API server documentation [here](https://github.com/WazirX/wazirx-api).
 
+## Installation
+
+Make sure you have set the environment variable $GOPATH
+
+```bash
+export GOPATH="path/to/your/go/folder"
+```
+
+Obtain the latest version of the  Go-Wazirx library with:
+
+```bash
+go get github.com/itsksaurabh/go-wazirx
+```
+
+Then, add the following to your Go project:
+
+```go
+import (
+	"github.com/itsksaurabh/go-wazirx"
+)
+```
+
 ## Usage
 Package provides a client for accessing different endpoints of the API.
 Create a new instance of Client, then use the various methods on the client to access different parts of the API.
