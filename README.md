@@ -12,6 +12,28 @@ ___
 ## API Documentation
 You can read the API server documentation [here](https://github.com/WazirX/wazirx-api).
 
+## Installation
+
+Make sure you have set the environment variable $GOPATH
+
+```bash
+export GOPATH="path/to/your/go/folder"
+```
+
+Obtain the latest version of the  Go-Wazirx library with:
+
+```bash
+go get github.com/itsksaurabh/go-wazirx
+```
+
+Then, add the following to your Go project:
+
+```go
+import (
+	"github.com/itsksaurabh/go-wazirx"
+)
+```
+
 ## Usage
 Package provides a client for accessing different endpoints of the API.
 Create a new instance of Client, then use the various methods on the client to access different parts of the API.
@@ -45,6 +67,48 @@ Notes:
 * Using the  [https://godoc.org/context](https://godoc.org/context) package for passing context.
 * Look at tests(*_test.go) files for more sample usage.
 
+## Error Handling
+
+All errors generated at runtime will be returned to the calling client method. Any API request for which WazirX returns an error encoded in a JSON response will be parsed and returned by the client method as a Golang error struct. Lastly, it is important to note that for HTTP requests, if the response code returned is not '200 OK', an error will be returned to the client method detailing the response code that was received.
+
+## Testing
+
+In order to run the tests for this library, you will first need to install [Mage](https://magefile.org/) - A Make/rake-like dev tool using Go. You can install the dependency with the following command:
+
+**Using GOPATH**
+
+```
+go get -u -d github.com/magefile/mage
+cd $GOPATH/src/github.com/magefile/mage
+go run bootstrap.go
+```
+
+**Using Go Modules**
+
+```
+git clone https://github.com/magefile/mage
+cd mage
+go run bootstrap.go
+```
+The mage binary will be created in your `$GOPATH/bin` directory.
+You may also install a binary release from Mage's [releases](https://github.com/magefile/mage/releases) page.
+
+Then run all tests by executing the following in your command line:
+    
+ 	$ mage -v Test
+
+**Updating Test Data**
+
+You can update the test data inside `./testdata/` by enabling the following flag inside the file `./wazirx_test.go` and then perform testing. By default the flag is set to `false`.
+```bash
+var (
+	updateTestData = flag.Bool(
+		"update",
+		true,
+		"if set then update testdata else use saved testdata for testing.",
+	)
+)
+```
 # Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
 
