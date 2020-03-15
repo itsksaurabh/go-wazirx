@@ -9,7 +9,7 @@ ___
 <img style="float:left;" width="200" src="./assets/logo.png"> 
 
 ## Go-WazirX is a [Go](http://golang.org/) client library for accessing the [WazirX](https://wazirx.com/)'s Public Rest API.
-This project has been recommended by the **founders** of [WazirX](https://wazirx.com/) themselves. You can check [here](https://twitter.com/BuddhaSource/status/1239103029112012800).
+This project has been recommended by the **founders** of [WazirX](https://wazirx.com/) cryptocurrency exchange themselves. You can check [here](https://twitter.com/BuddhaSource/status/1239103029112012800).
 ## API Documentation
 You can read the API server documentation [here](https://github.com/WazirX/wazirx-api).
 
