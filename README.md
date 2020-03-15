@@ -67,6 +67,10 @@ Notes:
 * Using the  [https://godoc.org/context](https://godoc.org/context) package for passing context.
 * Look at tests(*_test.go) files for more sample usage.
 
+## Error Handling
+
+All errors generated at runtime will be returned to the calling client method. Any API request for which WazirX returns an error encoded in a JSON response will be parsed and returned by the client method as a Golang error struct. Lastly, it is important to note that for HTTP requests, if the response code returned is not '200 OK', an error will be returned to the client method detailing the response code that was received.
+
 # Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
 
