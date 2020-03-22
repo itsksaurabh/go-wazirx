@@ -113,7 +113,10 @@ var (
 # Contributing
 I welcome pull requests, bug fixes and issue reports. Before proposing a change, please discuss your change by raising an issue.
 
-# Author
-<ul>
-  <li><a href="https://in.linkedin.com/in/itsksaurabh">Kumar Saurabh</a></li>
-</ul>
+# Maintainer 😎
+
+[Kumar Saurabh](https://in.linkedin.com/in/itsksaurabh)
+
+## License
+
+[MIT](LICENSE) © Kumar Saurabh
