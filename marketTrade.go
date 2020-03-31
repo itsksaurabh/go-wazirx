@@ -3,7 +3,6 @@ package wazirx
 import (
 	"context"
 	"encoding/json"
-	"net/http"
 	"strconv"
 	"time"
 
@@ -53,13 +52,8 @@ func (c Client) MarketTrade(ctx context.Context, market string) (data []MarketTr
 
 	endpoint := "/api/v2/trades" + "?market=" + market
 
-	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
-	if err != nil {
-		return nil, errors.Wrap(err, "could not generate http request")
-	}
-
-	if err = c.Do(WithCtx(ctx, r), &data); err != nil {
-		return nil, errors.Wrap(err, "request failed")
+	if err := c.makeGetRequest(ctx, endpoint, &data); err != nil {
+		return nil, err
 	}
 	return data, nil
 }

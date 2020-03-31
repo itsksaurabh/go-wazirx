@@ -3,12 +3,10 @@ package wazirx
 import (
 	"context"
 	"encoding/json"
-	"net/http"
 	"strconv"
 	"time"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 )
 
 // MakerTaker holds order's maker-taker
@@ -141,13 +139,8 @@ type MarketStatus struct {
 func (c Client) MarketStatus(ctx context.Context) (data MarketStatus, err error) {
 	endpoint := "/api/v2/market-status"
 
-	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
-	if err != nil {
-		return MarketStatus{}, errors.Wrap(err, "could not generate http request")
-	}
-
-	if err = c.Do(WithCtx(ctx, r), &data); err != nil {
-		return MarketStatus{}, errors.Wrap(err, "request failed")
+	if err := c.makeGetRequest(ctx, endpoint, &data); err != nil {
+		return MarketStatus{}, err
 	}
 	return data, nil
 }
