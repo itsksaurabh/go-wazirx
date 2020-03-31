@@ -19,9 +19,9 @@ const (
 	DefaultBaseURL = "https://api.wazirx.com"
 )
 
-// WithCtx applies 'ctx' to the the http.Request and returns *http.Request
+// withCtx applies 'ctx' to the the http.Request and returns *http.Request
 // The provided ctx and req must be non-nil
-func WithCtx(ctx context.Context, req *http.Request) *http.Request {
+func withCtx(ctx context.Context, req *http.Request) *http.Request {
 	if req == nil {
 		panic("nil http.Request")
 	}
@@ -34,6 +34,20 @@ type Client struct {
 	HTTP *http.Client
 	// BaseURL is the REST endpoints URL of the api server
 	BaseURL *url.URL
+}
+
+// makeGetRequest generates HTTP GET request and calls Do func
+func (c Client) makeGetRequest(ctx context.Context, endpoint string, target interface{}) error {
+	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
+	if err != nil {
+		return errors.Wrap(err, "could not generate http request")
+	}
+
+	if err = c.Do(withCtx(ctx, r), target); err != nil {
+		return errors.Wrap(err, "request failed")
+	}
+
+	return nil
 }
 
 // Do sends the http.Request and unmarshalls the JSON response into 'target'
