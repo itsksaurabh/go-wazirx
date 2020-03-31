@@ -7,7 +7,7 @@ import (
 
 func TestMarketDepth(t *testing.T) {
 	market := "btcusdt"
-	_, err := client(t).MarketDepth(context.Background(), market)
+	_, err := testClient(t).MarketDepth(context.Background(), market)
 	if err != nil {
 		if err != nil {
 			t.Fatal(err)
