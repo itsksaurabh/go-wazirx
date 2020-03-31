@@ -3,11 +3,8 @@ package wazirx
 import (
 	"context"
 	"encoding/json"
-	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 // TickerData holds active market data with all ticker related values
@@ -73,13 +70,8 @@ func (t *TickerData) UnmarshalJSON(data []byte) error {
 func (c Client) MarketTicker(ctx context.Context) (data map[string]TickerData, err error) {
 	endpoint := "/api/v2/tickers"
 
-	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
-	if err != nil {
-		return nil, errors.Wrap(err, "could not generate http request")
-	}
-
-	if err = c.Do(WithCtx(ctx, r), &data); err != nil {
-		return nil, errors.Wrap(err, "request failed")
+	if err := c.makeGetRequest(ctx, endpoint, &data); err != nil {
+		return nil, err
 	}
 	return data, nil
 }

@@ -3,7 +3,6 @@ package wazirx
 import (
 	"context"
 	"encoding/json"
-	"net/http"
 	"strconv"
 	"time"
 
@@ -65,13 +64,8 @@ func (c Client) MarketDepth(ctx context.Context, market string) (data MarketDept
 
 	endpoint := "/api/v2/depth" + "?market=" + market
 
-	r, err := http.NewRequest(http.MethodGet, DefaultBaseURL+endpoint, nil)
-	if err != nil {
-		return MarketDepth{}, errors.Wrap(err, "could not generate http request")
-	}
-
-	if err = c.Do(WithCtx(ctx, r), &data); err != nil {
-		return MarketDepth{}, errors.Wrap(err, "request failed")
+	if err := c.makeGetRequest(ctx, endpoint, &data); err != nil {
+		return MarketDepth{}, err
 	}
 	return data, nil
 }
