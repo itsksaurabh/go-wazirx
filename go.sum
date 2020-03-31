@@ -1,3 +1,5 @@
+github.com/itsksaurabh/go-corona v1.0.3 h1:hpi8j+KSUZGnT8ljSaX5py3UqM7i5S6wBeMEKVnCmk8=
+github.com/itsksaurabh/go-corona v1.0.3/go.mod h1:wZGLyDN/Wkn2ehK1Euwd1cRww4H+etYUsT3IizsbCT8=
 github.com/magefile/mage v1.9.0 h1:t3AU2wNwehMCW97vuqQLtw6puppWXHO+O2MHo5a50XE=
 github.com/magefile/mage v1.9.0/go.mod h1:z5UZb/iS3GoOSn0JgWuiw7dxlurVYTu+/jHXqQg881A=
 github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQzvN1EDeE=
